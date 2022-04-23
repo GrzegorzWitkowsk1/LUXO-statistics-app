@@ -39,6 +39,7 @@ export default function App() {
 		tempX = tempX.filter((item) => item >= startDate && item <= endDate)
 
 		tempYDifference[0] = 0;
+		
 		if(isDifference) {
 			setYValues(tempYDifference)
 		}
