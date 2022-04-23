@@ -5,6 +5,9 @@ import Plot from "react-plotly.js";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -15,19 +18,34 @@ export default function App() {
 	const [xValues, setXValues] = useState([])
 	const [startDate, setStartDate] = useState()
 	const [endDate, setEndDate] = useState()
+	const [isDifference, setIsDifference] = useState(false)
 	
 	function generatePlot() {
 		let tempY = []
 		let tempX = []
+		let tempYDifference = []
+
+		for (var i = 1; i < data.length ; i++) {
+			tempYDifference[i] = data[i][choosenStatistic] - data[i-1][choosenStatistic];
+			console.log(tempYDifference[i] = data[i][choosenStatistic] - data[i-1][choosenStatistic])
+		}
 
 		data.map((item) => 
 		{			
 			tempY.push(item[choosenStatistic])
 			tempX.push(item.date)
 		})
+
 		tempX = tempX.filter((item) => item >= startDate && item <= endDate)
-		console.log(tempX)
-		setYValues(tempY)
+
+		tempYDifference[0] = 0;
+		if(isDifference) {
+			setYValues(tempYDifference)
+		}
+		else{
+			setYValues(tempY)
+		}
+
 		setXValues(tempX)
 	}
 
@@ -68,6 +86,7 @@ export default function App() {
 				{data ? (
 					<div>
 						<h2 style={{ color: "rgba(2,0,36,1)" }}>Pick statistic, which you want to see</h2>
+						<div style={{display:'flex'}}>
 						<Select
 							value={choosenStatistic}
 							onChange={(e) => setChoosenStatistic(e.target.value)}
@@ -82,6 +101,10 @@ export default function App() {
 								})
 								: null}
 						</Select>
+						<FormGroup sx={{margin: '0 auto', marginTop:1}}>
+							<FormControlLabel control={<Checkbox value={isDifference} onChange={(e) => setIsDifference(!isDifference)} />} label="Check if you want to see difference between days" />
+						</FormGroup>
+						</div>
 						<div style={{marginTop:10}}>
 						<h2 style={{ color: "rgba(2,0,36,1)" }}>Pick the date range</h2>
 
