@@ -39,7 +39,7 @@ export default function App() {
 		tempX = tempX.filter((item) => item >= startDate && item <= endDate)
 
 		tempYDifference[0] = 0;
-		
+
 		if(isDifference) {
 			setYValues(tempYDifference)
 		}
@@ -53,7 +53,7 @@ export default function App() {
 	useEffect(() => {
 		axios
 			.get(
-				"http://api.lukaszkusyk.pl/scp_strategy-analytics/GetHistoricalData.php"
+				"https://api.lukaszkusyk.pl/scp_strategy-analytics/GetHistoricalData.php"
 			)
 			.then((res) => {
 				setData(res.data);
