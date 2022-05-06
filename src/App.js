@@ -27,12 +27,13 @@ export default function App() {
 
 		for (var i = 1; i < data.length ; i++) {
 			tempYDifference[i] = data[i][choosenStatistic] - data[i-1][choosenStatistic];
-			console.log(tempYDifference[i] = data[i][choosenStatistic] - data[i-1][choosenStatistic])
 		}
 
 		data.map((item) => 
-		{			
-			tempY.push(item[choosenStatistic])
+		{		
+			if(item.date >= startDate && item.date <= endDate){	
+				tempY.push(item[choosenStatistic])
+			}
 			tempX.push(item.date)
 		})
 
@@ -48,6 +49,8 @@ export default function App() {
 		}
 
 		setXValues(tempX)
+		console.log(tempX)
+		console.log(tempY)
 	}
 
 	useEffect(() => {
