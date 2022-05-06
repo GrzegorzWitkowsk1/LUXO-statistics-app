@@ -14,8 +14,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 export default function App() {
 	const [data, setData] = useState();
 	const [choosenStatistic, setChoosenStatistic] = useState("checked_anomalies");
-	const [yValues, setYValues] = useState([])
-	const [xValues, setXValues] = useState([])
+	const [values, setValues] = useState([])
+	const [dates, setDates] = useState([])
 	const [startDate, setStartDate] = useState()
 	const [endDate, setEndDate] = useState()
 	const [isDifference, setIsDifference] = useState(false)
@@ -25,10 +25,7 @@ export default function App() {
 		let tempX = []
 		let tempYDifference = []
 
-		for (var i = 1; i < data.length ; i++) {
-			tempYDifference[i] = data[i][choosenStatistic] - data[i-1][choosenStatistic];
-		}
-
+		
 		data.map((item) => 
 		{		
 			if(item.date >= startDate && item.date <= endDate){	
@@ -36,21 +33,24 @@ export default function App() {
 			}
 			tempX.push(item.date)
 		})
+		
+		for (var i = 1; i < tempY.length ; i++) {
+			tempYDifference[i] = tempY[i]- tempY[i-1];
+		}
+		console.log(tempYDifference)
 
 		tempX = tempX.filter((item) => item >= startDate && item <= endDate)
 
 		tempYDifference[0] = 0;
 
 		if(isDifference) {
-			setYValues(tempYDifference)
+			setValues(tempYDifference)
 		}
 		else{
-			setYValues(tempY)
+			setValues(tempY)
 		}
 
-		setXValues(tempX)
-		console.log(tempX)
-		console.log(tempY)
+		setDates(tempX)
 	}
 
 	useEffect(() => {
@@ -143,11 +143,11 @@ export default function App() {
 					<CircularProgress />
 				)}
 				<div style={{ marginBottom:50, marginTop:20 }}>
-					{xValues.length > 0 && yValues.length > 0 ? <Plot
+					{dates.length > 0 && values.length > 0 ? <Plot
 						data={[
 							{
-								x: xValues,
-								y: yValues,
+								x: dates,
+								y: values,
 								type: "scatter",
 								mode: "lines+markers",
 								marker: { color: "darkblue" },
