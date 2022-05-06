@@ -57,7 +57,7 @@ export default function App() {
 			)
 			.then((res) => {
 				setData(res.data);
-				setStartDate(res.data[0].date)
+				setStartDate('2022-05-05')
 				setEndDate(res.data[res.data.length - 1].date)
 			});
 	}, []);

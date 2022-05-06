@@ -2,7 +2,7 @@
   "name": "scpstrategy",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://GrzegorzWitkowsk1.github.io/LUXO-statistics-app",
+  "homepage": "https://GrzegorzWitkowsk1.github.io/LUXO-statistics-app",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
